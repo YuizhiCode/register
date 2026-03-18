@@ -416,6 +416,22 @@ def _count_valid_cpa_tokens(pm, args):
         print(f"[CPA] 统计 token 失败: {e}")
         return 0
 
+
+# 账号行清理：上传成功且开启 prune_local 后使用
+# 安全处理：文件不存在直接返回，写入保持末尾换行便于追加
+
+def _remove_account_entry(accounts_path: Path, email: str, real_pwd: str):
+    if not accounts_path.exists():
+        return
+    try:
+        lines = accounts_path.read_text(encoding="utf-8").splitlines()
+        target = f"{email}----{real_pwd}"
+        kept = [ln for ln in lines if ln.strip() != target]
+        accounts_path.write_text("\n".join(kept) + ("\n" if kept else ""), encoding="utf-8")
+        print(f"[本地清理] 已从 accounts.txt 移除: {email}")
+    except Exception as e:
+        print(f"[本地清理] 移除账号行失败: {e}")
+
 # ========== 主注册流程 (恢复详细日志与异常捕获) ==========
 
 def run(proxy: Optional[str]):
