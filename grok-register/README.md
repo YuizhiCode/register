@@ -29,13 +29,14 @@ cp .env.example .env
 YESCAPTCHA_KEY="你的_yescaptcha_key"
 ```
 
-如果要使用 `luckmail`，还需要补这些：
+如果要使用 `luckmail`，一般只需要补这些：
 
 ```env
 EMAIL_PROVIDER="luckmail"
-LUCKMAIL_BASE_URL="https://mails.luckyous.com"
 LUCKMAIL_API_KEY="你的_luckmail_api_key"
 ```
+
+`LUCKMAIL_BASE_URL` 已内置为 `https://mails.luckyous.com`，通常不用额外设置；只有你使用别的 LuckMail 站点时，才需要自行覆盖。
 
 其余可选项也都可以放进 `.env` 里自定义，比如：
 
@@ -77,7 +78,7 @@ uv run python grok.py --email-provider luckmail --threads 8
 - `--email-provider`：邮箱提供商，可选 `gptmail` / `luckmail`。默认读取 `.env` 中的 `EMAIL_PROVIDER`，未设置时为 `gptmail`。
 - `--threads`：并发线程数。CLI 参数优先；未传时会读取 `.env` 中的 `THREADS`；再没有就交互输入，默认 1。
 - `YESCAPTCHA_KEY`：YesCaptcha 的 API Key，必填。
-- `LUCKMAIL_BASE_URL`：LuckMail 平台地址，默认可用值为 `https://mails.luckyous.com`。
+- `LUCKMAIL_BASE_URL`：LuckMail 平台地址，默认内置为 `https://mails.luckyous.com`；只有使用别的 LuckMail 站点时才需要设置。
 - `LUCKMAIL_API_KEY`：LuckMail API Key，使用 `luckmail` 时必填。
 - `LUCKMAIL_API_SECRET` / `LUCKMAIL_USE_HMAC`：LuckMail 可选 HMAC 鉴权配置。
 - `LUCKMAIL_PROJECT_CODE` / `LUCKMAIL_EMAIL_TYPE` / `LUCKMAIL_DOMAIN`：LuckMail 购买邮箱参数，默认分别为 `grok` / `ms_graph` / `outlook.com`。

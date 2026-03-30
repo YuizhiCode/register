@@ -28,9 +28,8 @@ uv run python openai_register.py --mail-provider tempmail --once
 uv run python openai_register.py --mail-provider gptmail --once
 ```
 
-使用 LuckMail（Outlook 接码）前先配置环境变量：
+使用 LuckMail（Outlook 接码）时，`LUCKMAIL_BASE_URL` 已内置为 `https://mails.luckyous.com`，一般不用额外设置；只需要配置 API Key 即可：
 ```bash
-export LUCKMAIL_BASE_URL="https://your-luckmail-domain.com"
 export LUCKMAIL_API_KEY="YOUR_LUCKMAIL_API_KEY"
 # 可选
 export LUCKMAIL_API_SECRET="YOUR_LUCKMAIL_API_SECRET"
@@ -43,6 +42,8 @@ export LUCKMAIL_POLL_INTERVAL="6"
 
 uv run python openai_register.py --mail-provider luckmail --once
 ```
+
+如果你使用的是别的 LuckMail 站点，再按需覆盖 `LUCKMAIL_BASE_URL`。
 
 启用 Sub2API 自动上传示例（推荐用全局 Admin API Key）：
 ```bash
